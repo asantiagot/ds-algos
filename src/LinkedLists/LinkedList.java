@@ -7,14 +7,10 @@ class LinkedList {
         return first == null;
     }
 
-    void addLink(int data) {
+    void insertFirst (int data) {
         Link newLink = new Link(data);
-        if (isEmpty()) {
-            first = newLink;
-        } else {
-            newLink.next = first;
-            first = newLink;
-        }
+        newLink.next = first;
+        first = newLink;
     }
 
     void traverseList() {
@@ -45,18 +41,16 @@ class LinkedList {
         } else {
             Link link = first;
             int i = 0;
-            boolean found = false;
-            while (link != null) {
-                if (link.data == data) {
-                    System.out.println(data + " found at link " +i);
-                    found = true;
+            while (link.data != data) {
+                if (link.next == null) {
+                    System.out.println(data + " not found in list ");
+                    return;
+                } else {
+                    link = link.next;
                 }
-                link = link.next;
                 i++;
             }
-            if (!found) {
-                System.out.println(data + " not found in list ");
-            }
+            System.out.println(data + " found at link " + i);
         }
     }
 
@@ -66,18 +60,38 @@ class LinkedList {
         } else {
             Link link = first;
             Link previous = first;
-            while (link != null) {
-                if (link.data == data) {
-                    if (link == first) {
-                        first = link.next;
-                    } else {
-                        previous.next = link.next;
-                    }
+
+            int i = 0;
+            while (link.data != data) {
+                if (link.next == null) {
+                    System.out.println(data + " not found in list");
                     return;
+                } else {
+                    previous = link;
+                    link = link.next;
                 }
-                previous = link;
-                link = link.next;
+                i++;
             }
+            if (link == first) {
+                first = first.next;
+            } else {
+                previous.next = link.next;
+            }
+            System.out.println(data + " found at deleted in link " + i);
+
+
+//            while (link != null) {
+//                if (link.data == data) {
+//                    if (link == first) {
+//                        first = link.next;
+//                    } else {
+//                        previous.next = link.next;
+//                    }
+//                    return;
+//                }
+//                previous = link;
+//                link = link.next;
+//            }
         }
     }
 
